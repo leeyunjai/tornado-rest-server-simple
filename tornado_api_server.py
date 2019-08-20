@@ -1,14 +1,9 @@
 import tornado.ioloop
 import tornado.web
-import tornado.concurrent
 import json
 import base64
-import os
-import uuid
-import numpy as np
-import time
 from datetime import datetime
-import random, string, pytz
+import argparse
 
 MAX_PROCESS=1 
 
@@ -17,7 +12,7 @@ class TextHandler(tornado.web.RequestHandler):
     param = self.request.headers['time']
     message = self.request.arguments['msg'][0].decode()
     print("[{}-RECV] param:{}, message: {}".format(self.__class__.__name__,param, message))
-    return self.write(bytes(json.dumps({"type":"TextHandler", "result":"ok", "data":param}), 'UTF-8'))
+    return self.write(bytes(json.dumps({"type":"TextHandler", "result":"ok", "data":message}), 'UTF-8'))
 
 class ImageHandler(tornado.web.RequestHandler):
   def upload_file(self, file, f_name):
@@ -50,9 +45,15 @@ def configure_app():
   ])
 
 if __name__ == "__main__":
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--port', help='Port Number', default=8888)
+  args = parser.parse_args()
+  print("Configure: {}".format(args))
+  print("Server Start!!")
+
   app = configure_app()
   server = tornado.httpserver.HTTPServer(app)
-  server.bind(8888)
+  server.bind(args.port)
   server.start(MAX_PROCESS) # forks one process per cpu 0
   tornado.ioloop.IOLoop.current().start()
 
