@@ -8,6 +8,7 @@ pip3 install tornado
 
 # Usage
  1. server
+ 
 tornado_api_server.py [-h] [--port PORT]
 
 optional arguments:
@@ -15,6 +16,7 @@ optional arguments:
   --port PORT  Port Number
 
  2. client
+ 
 client.py [-h] [--type TYPE] [--url URL] [--snd_file SND_FILE]
                  [--rcv_file RCV_FILE] [--message MESSAGE]
 
