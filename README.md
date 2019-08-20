@@ -3,6 +3,9 @@ This is simple tornado server.(Text and Image communication example)
  1. ImageHandler: Image send -> receive -> send 
  2. TextHandler: Echo server
 
+# pre-install
+pip3 install tornado
+
 # Usage
  1. server
 tornado_api_server.py [-h] [--port PORT]
